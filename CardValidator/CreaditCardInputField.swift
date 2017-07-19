@@ -82,14 +82,23 @@ extension CreaditCardInputField:UITextFieldDelegate {
         switch tfKind {
         
         case .number:
-            guard range.length == 0 else { // deleting
-                break
+            
+            switch (range.location, range.length){
+                
+                case (4,0),(9,0),(14,0): textField.text = textField.text! + " "
+                
+                case (5,1),(10,1),(15,1):
+                    
+                    guard let text = textField.text else {break}
+                    let index = text.index(before:text.endIndex)
+                    textField.text = text.substring(to: index)
+
+                case (19,0): switchToNeighbourTF(of: textField, direction: 1)
+                default: break
             }
-            if range.location == 16 {
-                switchToNeighbourTF(of: textField, direction: 1)
-            }
+
         case .expirationDate:
-            print(range.location)
+            
             switch (range.location, range.length) {
                 
                 case (0, 1):
@@ -106,8 +115,7 @@ extension CreaditCardInputField:UITextFieldDelegate {
 
                     switchToNeighbourTF(of: textField, direction: 1)
                 
-                default:
-                    break
+                default:break
             }
 
         case .cvv:
