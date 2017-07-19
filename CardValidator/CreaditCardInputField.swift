@@ -43,9 +43,21 @@ class CreaditCardInputField: UIControl {
         _ = textFields.map{ tf -> (UITextField) in
             tf.backgroundColor = UIColor.green
             tf.delegate = self
+            tf.keyboardType = .numberPad
             return tf
         }
         
+        setupContraints()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        
+        super.init(coder: aDecoder)
+    
+    }
+    
+    private func setupContraints()
+    {
         _ = textFields.map{
             $0.autoAlignAxis(toSuperviewAxis: .horizontal)
             $0.autoSetDimension(.height, toSize: minimumElementHeigh, relation: .greaterThanOrEqual)
@@ -54,19 +66,12 @@ class CreaditCardInputField: UIControl {
         cardNumberTF.autoPinEdge(toSuperviewEdge: .left, withInset:edgeMargin)
         cardNumberTF.autoPinEdge(.right, to: .left, of: expirationDateTF, withOffset: -elementsSpacing)
         cardNumberTF.autoSetDimension(.width, toSize: 70, relation: .greaterThanOrEqual)
-
+        
         expirationDateTF.autoPinEdge(.right, to: .left, of: cvvTF, withOffset: -elementsSpacing)
         expirationDateTF.autoSetDimension(.width, toSize: 50, relation: .greaterThanOrEqual)
-
+        
         cvvTF.autoPinEdge(toSuperviewEdge: .right, withInset:edgeMargin)
         cvvTF.autoSetDimension(.width, toSize: 50, relation: .greaterThanOrEqual)
-
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        
-        super.init(coder: aDecoder)
-    
     }
 }
 
@@ -74,6 +79,10 @@ class CreaditCardInputField: UIControl {
 extension CreaditCardInputField:UITextFieldDelegate {
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+    
+        guard validateString(string: string) else {
+            return false
+        }
         
         guard let tfKind = FieldKind(rawValue: textField.tag)  else {
             return true
@@ -139,5 +148,13 @@ extension CreaditCardInputField:UITextFieldDelegate {
     {
         guard let neighbourTF = textFields.first(where: {$0.tag == tf.tag + direction}) else {return}
         neighbourTF.becomeFirstResponder()
+    }
+    
+    private func validateString(string:String)->Bool
+    {
+        let aSet = NSCharacterSet.decimalDigits.inverted
+        let compSepByCharInSet = string.components(separatedBy: aSet)
+        let numberFiltered = compSepByCharInSet.joined(separator: "")
+        return string == numberFiltered
     }
 }
