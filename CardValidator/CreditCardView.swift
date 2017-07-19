@@ -17,7 +17,7 @@ class CreditCardView: UIView {
     let validateButton = Button(type: .custom)
     let generateButton = Button(type: .custom)
     let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
-    
+    let validityIndicator = ValidityIndicator()
     let edgeMargin:CGFloat = 10
     let buttonHeight:CGFloat = 30
     
@@ -47,8 +47,12 @@ class CreditCardView: UIView {
         addSubview(validateButton)
         addSubview(generateButton)
         addSubview(activityIndicator)
+        addSubview(validityIndicator)
         
-        activityIndicator.isHidden = false
+        activityIndicator.isHidden = true
+        
+        validityIndicator.isHidden = false
+
         
         backgroundColor = UIColor.purple
         
@@ -87,6 +91,8 @@ class CreditCardView: UIView {
         activityIndicator.autoSetDimensions(to: CGSize(width: buttonHeight, height: buttonHeight))
         activityIndicator.autoPinEdge(.left, to: .right, of: generateButton, withOffset: edgeMargin, relation:NSLayoutRelation.greaterThanOrEqual)
         activityIndicator.autoPinEdge(.right, to: .left, of: validateButton, withOffset: -edgeMargin, relation:NSLayoutRelation.greaterThanOrEqual)
+        
+        validityIndicator.autoMatchAll(to:activityIndicator)
     }
     
     required init?(coder aDecoder: NSCoder)
