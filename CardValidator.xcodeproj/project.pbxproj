@@ -8,12 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		0B7DE3EFF82282B72D8A051D /* Pods_CardValidator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B008D6DD2509679EC866404 /* Pods_CardValidator.framework */; };
+		E15600D21F1F61FF002F58C6 /* CreditCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15600D11F1F61FF002F58C6 /* CreditCardView.swift */; };
 		E1E185EA1F1E33EC00F2FB41 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E185E91F1E33EC00F2FB41 /* AppDelegate.swift */; };
-		E1E185EC1F1E33EC00F2FB41 /* CreditCardInputVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E185EB1F1E33EC00F2FB41 /* CreditCardInputVC.swift */; };
+		E1E185EC1F1E33EC00F2FB41 /* CreditCardVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E185EB1F1E33EC00F2FB41 /* CreditCardVC.swift */; };
 		E1E185F11F1E33EC00F2FB41 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E1E185F01F1E33EC00F2FB41 /* Assets.xcassets */; };
 		E1E185F41F1E33EC00F2FB41 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E1E185F21F1E33EC00F2FB41 /* LaunchScreen.storyboard */; };
 		E1E185FF1F1E33EC00F2FB41 /* CardValidatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E185FE1F1E33EC00F2FB41 /* CardValidatorTests.swift */; };
-		E1E1860A1F1E342800F2FB41 /* CreaditCardInputField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E186091F1E342800F2FB41 /* CreaditCardInputField.swift */; };
+		E1E1860A1F1E342800F2FB41 /* CreditCardInputField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E186091F1E342800F2FB41 /* CreditCardInputField.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -30,16 +31,17 @@
 		0B008D6DD2509679EC866404 /* Pods_CardValidator.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CardValidator.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		637073CA467894615E8B5225 /* Pods-CardValidator.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CardValidator.release.xcconfig"; path = "Pods/Target Support Files/Pods-CardValidator/Pods-CardValidator.release.xcconfig"; sourceTree = "<group>"; };
 		C093DBBF40F8341795EAC2A3 /* Pods-CardValidator.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CardValidator.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CardValidator/Pods-CardValidator.debug.xcconfig"; sourceTree = "<group>"; };
+		E15600D11F1F61FF002F58C6 /* CreditCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreditCardView.swift; sourceTree = "<group>"; };
 		E1E185E61F1E33EC00F2FB41 /* CardValidator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CardValidator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1E185E91F1E33EC00F2FB41 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		E1E185EB1F1E33EC00F2FB41 /* CreditCardInputVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCardInputVC.swift; sourceTree = "<group>"; };
+		E1E185EB1F1E33EC00F2FB41 /* CreditCardVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCardVC.swift; sourceTree = "<group>"; };
 		E1E185F01F1E33EC00F2FB41 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E1E185F31F1E33EC00F2FB41 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E1E185F51F1E33EC00F2FB41 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E1E185FA1F1E33EC00F2FB41 /* CardValidatorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CardValidatorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1E185FE1F1E33EC00F2FB41 /* CardValidatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardValidatorTests.swift; sourceTree = "<group>"; };
 		E1E186001F1E33EC00F2FB41 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		E1E186091F1E342800F2FB41 /* CreaditCardInputField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreaditCardInputField.swift; sourceTree = "<group>"; };
+		E1E186091F1E342800F2FB41 /* CreditCardInputField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreditCardInputField.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,8 +104,9 @@
 			isa = PBXGroup;
 			children = (
 				E1E185E91F1E33EC00F2FB41 /* AppDelegate.swift */,
-				E1E185EB1F1E33EC00F2FB41 /* CreditCardInputVC.swift */,
-				E1E186091F1E342800F2FB41 /* CreaditCardInputField.swift */,
+				E1E185EB1F1E33EC00F2FB41 /* CreditCardVC.swift */,
+				E1E186091F1E342800F2FB41 /* CreditCardInputField.swift */,
+				E15600D11F1F61FF002F58C6 /* CreditCardView.swift */,
 				E1E185F01F1E33EC00F2FB41 /* Assets.xcassets */,
 				E1E185F21F1E33EC00F2FB41 /* LaunchScreen.storyboard */,
 				E1E185F51F1E33EC00F2FB41 /* Info.plist */,
@@ -275,8 +278,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E1E1860A1F1E342800F2FB41 /* CreaditCardInputField.swift in Sources */,
-				E1E185EC1F1E33EC00F2FB41 /* CreditCardInputVC.swift in Sources */,
+				E15600D21F1F61FF002F58C6 /* CreditCardView.swift in Sources */,
+				E1E1860A1F1E342800F2FB41 /* CreditCardInputField.swift in Sources */,
+				E1E185EC1F1E33EC00F2FB41 /* CreditCardVC.swift in Sources */,
 				E1E185EA1F1E33EC00F2FB41 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

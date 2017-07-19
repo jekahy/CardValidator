@@ -1,5 +1,5 @@
 //
-//  CreaditCardInputField.swift
+//  CreditCardInputField.swift
 //  CardValidator
 //
 //  Created by Eugene on 18.07.17.
@@ -8,11 +8,8 @@
 
 import Foundation
 import UIKit
-import PureLayout
 
-
-
-class CreaditCardInputField: UIControl {
+class CreditCardInputField: UIStackView {
     
     enum FieldKind:Int {
         case number = 0
@@ -20,13 +17,11 @@ class CreaditCardInputField: UIControl {
         case cvv
     }
     
-    
     let cardNumberTF = UITextField(frame: CGRect.zero)
     let expirationDateTF = UITextField(frame: CGRect.zero)
     let cvvTF = UITextField(frame: CGRect.zero)
     
-    let edgeMargin:CGFloat = 10
-    let elementsSpacing:CGFloat = 10
+    let elementSpacing:CGFloat = 10
     let minimumElementHeigh:CGFloat = 50
     
     fileprivate lazy var textFields:[UITextField] = [self.cardNumberTF, self.expirationDateTF, self.cvvTF]
@@ -35,48 +30,38 @@ class CreaditCardInputField: UIControl {
         
         super.init(frame: CGRect.zero)
         
+        self.distribution = .fillProportionally
+        
+        self.spacing = elementSpacing
+        backgroundColor = UIColor.orange
         _ = textFields.reduce(0) {
             $0.1.tag = $0.0
             return $0.0+1
         }
-        _ = textFields.map{addSubview($0)}
+        _ = textFields.map{addArrangedSubview($0)}
         _ = textFields.map{ tf -> (UITextField) in
             tf.backgroundColor = UIColor.green
             tf.delegate = self
             tf.keyboardType = .numberPad
+            tf.font = tf.font?.withSize(16)
+            tf.clipsToBounds = false
             return tf
         }
         
-        setupContraints()
+        cardNumberTF.placeholder = "1234 1234 1234 1245"
+        expirationDateTF.placeholder = "MM/YY"
+        cvvTF.placeholder = "123"
     }
     
-    required init?(coder aDecoder: NSCoder) {
-        
-        super.init(coder: aDecoder)
-    
-    }
-    
-    private func setupContraints()
+    required init(coder: NSCoder)
     {
-        _ = textFields.map{
-            $0.autoAlignAxis(toSuperviewAxis: .horizontal)
-            $0.autoSetDimension(.height, toSize: minimumElementHeigh, relation: .greaterThanOrEqual)
-        }
-        
-        cardNumberTF.autoPinEdge(toSuperviewEdge: .left, withInset:edgeMargin)
-        cardNumberTF.autoPinEdge(.right, to: .left, of: expirationDateTF, withOffset: -elementsSpacing)
-        cardNumberTF.autoSetDimension(.width, toSize: 70, relation: .greaterThanOrEqual)
-        
-        expirationDateTF.autoPinEdge(.right, to: .left, of: cvvTF, withOffset: -elementsSpacing)
-        expirationDateTF.autoSetDimension(.width, toSize: 50, relation: .greaterThanOrEqual)
-        
-        cvvTF.autoPinEdge(toSuperviewEdge: .right, withInset:edgeMargin)
-        cvvTF.autoSetDimension(.width, toSize: 50, relation: .greaterThanOrEqual)
+        super.init(coder: coder)
     }
+    
 }
 
 
-extension CreaditCardInputField:UITextFieldDelegate {
+extension CreditCardInputField:UITextFieldDelegate {
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
     
