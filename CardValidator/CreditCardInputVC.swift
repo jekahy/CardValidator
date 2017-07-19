@@ -25,6 +25,7 @@ class CreditCardInputVC: UIViewController {
         cardField.autoSetDimension(.height, toSize: 70)
         
         cardField.backgroundColor = UIColor.blue
+        view.backgroundColor = UIColor.white
     }
     
 //    override func viewDidAppear(_ animated: Bool) {
