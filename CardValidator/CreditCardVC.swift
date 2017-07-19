@@ -24,12 +24,16 @@ class CreditCardVC: UIViewController {
         cardView.autoPin(toTopLayoutGuideOf: self, withInset: 50)
         cardView.autoSetDimension(.height, toSize: 120)
         
+        cardView.validateTapClosure = {
+            print("Validating")
+        }
+        
+        cardView.generateTapClosure = {
+            print("generating")
+        }
         
         view.backgroundColor = UIColor.white
     }
     
-//    override func viewDidAppear(_ animated: Bool) {
-//        
-//    }
 }
 

@@ -11,13 +11,33 @@ import PureLayout
 
 class CreditCardView: UIView {
     
+    typealias VoidClosure = ()->()
+    
     let inputField = CreditCardInputField()
-    let validateButton = UIButton(type: .custom)
-    let generateButton = UIButton(type: .custom)
+    let validateButton = Button(type: .custom)
+    let generateButton = Button(type: .custom)
     let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
     
     let edgeMargin:CGFloat = 10
     let buttonHeight:CGFloat = 30
+    
+    var generateTapClosure:VoidClosure?{
+        set{
+            generateButton.didTouchUpInsideClosure = newValue
+        }
+        get{
+            return generateButton.didTouchUpInsideClosure
+        }
+    }
+    
+    var validateTapClosure:VoidClosure?{
+        set{
+            validateButton.didTouchUpInsideClosure = newValue
+        }
+        get{
+            return validateButton.didTouchUpInsideClosure
+        }
+    }
     
     init()
     {
