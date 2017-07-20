@@ -13,7 +13,7 @@
 		E1583D3C1F1F75A00056FD3E /* ValidityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1583D3B1F1F75A00056FD3E /* ValidityIndicator.swift */; };
 		E1583D3E1F1F7BD90056FD3E /* UIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1583D3D1F1F7BD90056FD3E /* UIViewExtensions.swift */; };
 		E1583D401F1F7CA60056FD3E /* Roundable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1583D3F1F1F7CA60056FD3E /* Roundable.swift */; };
-		E1583D421F1F9C680056FD3E /* CreditCardValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1583D411F1F9C680056FD3E /* CreditCardValidator.swift */; };
+		E1583D421F1F9C680056FD3E /* CardValidationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1583D411F1F9C680056FD3E /* CardValidationService.swift */; };
 		E1583D441F1F9CD90056FD3E /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1583D431F1F9CD90056FD3E /* APIService.swift */; };
 		E1583D461F1F9FE10056FD3E /* ValidationResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1583D451F1F9FE10056FD3E /* ValidationResult.swift */; };
 		E1583D481F1FC5220056FD3E /* CollectionExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1583D471F1FC5220056FD3E /* CollectionExtensions.swift */; };
@@ -46,7 +46,7 @@
 		E1583D3B1F1F75A00056FD3E /* ValidityIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValidityIndicator.swift; sourceTree = "<group>"; };
 		E1583D3D1F1F7BD90056FD3E /* UIViewExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewExtensions.swift; sourceTree = "<group>"; };
 		E1583D3F1F1F7CA60056FD3E /* Roundable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Roundable.swift; sourceTree = "<group>"; };
-		E1583D411F1F9C680056FD3E /* CreditCardValidator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreditCardValidator.swift; sourceTree = "<group>"; };
+		E1583D411F1F9C680056FD3E /* CardValidationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardValidationService.swift; sourceTree = "<group>"; };
 		E1583D431F1F9CD90056FD3E /* APIService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		E1583D451F1F9FE10056FD3E /* ValidationResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValidationResult.swift; sourceTree = "<group>"; };
 		E1583D471F1FC5220056FD3E /* CollectionExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionExtensions.swift; sourceTree = "<group>"; };
@@ -128,7 +128,7 @@
 				E1E186091F1E342800F2FB41 /* CreditCardInputField.swift */,
 				E15600D11F1F61FF002F58C6 /* CreditCardView.swift */,
 				E1583D3B1F1F75A00056FD3E /* ValidityIndicator.swift */,
-				E1583D411F1F9C680056FD3E /* CreditCardValidator.swift */,
+				E1583D411F1F9C680056FD3E /* CardValidationService.swift */,
 				E1583D431F1F9CD90056FD3E /* APIService.swift */,
 				E1583D391F1F71210056FD3E /* Button.swift */,
 				E1583D3D1F1F7BD90056FD3E /* UIViewExtensions.swift */,
@@ -312,7 +312,7 @@
 				E1583D481F1FC5220056FD3E /* CollectionExtensions.swift in Sources */,
 				E1583D4C1F1FCE730056FD3E /* CreditCard.swift in Sources */,
 				E1583D3E1F1F7BD90056FD3E /* UIViewExtensions.swift in Sources */,
-				E1583D421F1F9C680056FD3E /* CreditCardValidator.swift in Sources */,
+				E1583D421F1F9C680056FD3E /* CardValidationService.swift in Sources */,
 				E1583D3C1F1F75A00056FD3E /* ValidityIndicator.swift in Sources */,
 				E15600D21F1F61FF002F58C6 /* CreditCardView.swift in Sources */,
 				E1583D461F1F9FE10056FD3E /* ValidationResult.swift in Sources */,

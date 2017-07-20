@@ -11,7 +11,9 @@ import PureLayout
 
 class CreditCardView: UIView {
     
-    typealias VoidClosure = ()->()
+    typealias ValidationClosure = (CreditCard, @escaping (Bool)->())->()
+    typealias GenerationClosure = ()->(()->(CreditCard))
+
     
     let inputField = CreditCardInputField()
     let validateButton = Button(type: .custom)
@@ -21,21 +23,28 @@ class CreditCardView: UIView {
     let edgeMargin:CGFloat = 10
     let buttonHeight:CGFloat = 30
     
-    var generateTapClosure:VoidClosure?{
-        set{
-            generateButton.didTouchUpInsideClosure = newValue
-        }
-        get{
-            return generateButton.didTouchUpInsideClosure
+    var generateTapClosure:GenerationClosure?{
+        didSet{
+            
+            generateButton.didTouchUpInsideClosure = {[weak self] in
+                
+                guard let creditCardGeneration = self?.generateTapClosure?() else {return}
+            
+                self?.inputField.currentCreditCard = creditCardGeneration()
+            }
         }
     }
     
-    var validateTapClosure:VoidClosure?{
-        set{
-            validateButton.didTouchUpInsideClosure = newValue
-        }
-        get{
-            return validateButton.didTouchUpInsideClosure
+    var validateTapClosure:ValidationClosure?{
+        didSet{
+            validateButton.didTouchUpInsideClosure = {[weak self] in
+                guard let valClosure = self?.validateTapClosure, let currentCard = self?.inputField.currentCreditCard else {
+                    return
+                }
+                valClosure(currentCard){[weak self] isValid in
+                    self?.validityIndicator.isValid = isValid
+                }
+            }
         }
     }
     
@@ -53,7 +62,6 @@ class CreditCardView: UIView {
         
         validityIndicator.isHidden = false
 
-        
         backgroundColor = UIColor.purple
         
         validateButton.backgroundColor = UIColor.cyan
@@ -61,7 +69,6 @@ class CreditCardView: UIView {
         
         generateButton.backgroundColor = UIColor.cyan
         generateButton.setTitle("Generate", for: .normal)
-        
         
         setupConstraints()
     }
@@ -77,7 +84,6 @@ class CreditCardView: UIView {
         validateButton.autoSetDimension(.width, toSize: 60, relation: .greaterThanOrEqual)
         validateButton.autoSetDimension(.height, toSize: buttonHeight)
         validateButton.autoPinEdge(toSuperviewEdge: .trailing, withInset:edgeMargin)
-        
         
         generateButton.autoPinEdge(.top, to: .bottom, of: inputField, withOffset:edgeMargin)
         generateButton.autoSetDimension(.width, toSize: 60, relation: .greaterThanOrEqual)

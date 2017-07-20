@@ -15,11 +15,21 @@ enum Result<T> {
     case failure(Error)
 }
 
-enum APIError:String, Error{
+enum APIError:Error, CustomStringConvertible{
     
-    case noData = "No data was received."
-    case JSONSerializationError = "Failed to serialize data."
-    case failedToConstructURL = "Failed to construct URL."
+    case noData
+    case JSONSerializationError
+    case failedToConstructURL
+    case responseError(String)
+    
+    var description: String{
+        switch self {
+        case .noData:                   return "No data was received."
+        case .JSONSerializationError:   return "Failed to serialize data."
+        case .failedToConstructURL:     return "Failed to construct URL."
+        case .responseError(let error): return "Received server error: \(error)"
+        }
+    }
 }
 
 protocol APIProtocol:class {
@@ -81,11 +91,22 @@ class APIService:APIProtocol{
                 return
             }
             
-            completion(.success(json))
-            
-            
+            if let error = self.checkJSONForError(json) {
+                completion(.failure(error))
+            }else{
+                completion(.success(json))
+            }
         }.resume()
 
+    }
+    
+    private func checkJSONForError(_ json:JSON)->APIError?
+    {
+        if json["error"] != nil, let errorMessage = json["message"] as? String {
+            
+            return APIError.responseError(errorMessage)
+        }
+        return nil
     }
 }
 

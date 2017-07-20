@@ -11,29 +11,25 @@ import PureLayout
 
 class CreditCardVC: UIViewController {
     
-    private (set) var cardView:CreditCardView!
+    let cardView = CreditCardView()
+    
+    let api:APIProtocol = APIService()
     
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        cardView = CreditCardView()
         view.addSubview(cardView)
-        
+        view.backgroundColor = UIColor.white
+
         cardView.autoPinEdge(toSuperviewEdge: .left)
         cardView.autoPinEdge(toSuperviewEdge: .right)
         cardView.autoPin(toTopLayoutGuideOf: self, withInset: 50)
         cardView.autoSetDimension(.height, toSize: 120)
         
-        cardView.validateTapClosure = {
-            print("Validating")
-        }
-        
-        cardView.generateTapClosure = {
-            print("generating")
-        }
-        
-        view.backgroundColor = UIColor.white
-    }
+        cardView.validateTapClosure = {[unowned self] creditCard, completion in
     
+            CardValidationService.validate(creditCard, api: self.api, completion:completion)
+        }
+    }
 }
 

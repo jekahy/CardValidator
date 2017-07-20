@@ -1,5 +1,5 @@
 //
-//  CreditCardValidator.swift
+//  CardValidationService.swift
 //  CardValidator
 //
 //  Created by Eugene on 19.07.17.
@@ -14,7 +14,7 @@ protocol CreditCardValidatable {
 
 }
 
-class CreditCardValidationService:CreditCardValidatable{
+class CardValidationService:CreditCardValidatable{
     
     private static let bincodesApiKey = "5232a9bca11e25c0f8eb4313ff2644be"
     static let requestParameters = ["format":"json",
@@ -44,9 +44,33 @@ class CreditCardValidationService:CreditCardValidatable{
         }
     }
     
+    static func validate(_ card:CreditCard, api:APIProtocol, completion:@escaping(Bool)->())
+    {
+        
+        let params = generateParams(for: card)
+        api.getJSON( parameters: params) { result in
+            
+            DispatchQueue.main.async {
+                
+                switch result {
+                    
+                case .success(let json):
+                    guard let validationRes = ValidationResult(JSON: json) else {
+                        completion(false)
+                        break
+                    }
+                    completion(validationRes.valid)
+                case .failure:
+                    completion(false)
+                }
+            }
+        }
+    }
+    
+    
     static func generateParams(for card:CreditCard)->[String:String]
     {
-        var parameters = CreditCardValidationService.requestParameters
+        var parameters = CardValidationService.requestParameters
         parameters["cc"] = card.number
         return parameters
     }

@@ -24,6 +24,20 @@ class CreditCardInputField: UIStackView {
     let elementSpacing:CGFloat = 10
     let minimumElementHeigh:CGFloat = 50
     
+    var currentCreditCard:CreditCard{
+        get{
+            let expiration = Expiration(string:expirationDateTF.text ?? "")
+            let number = cardNumberTF.text?.replacingOccurrences(of: " ", with: "")
+            return CreditCard(number: number, expiration: expiration, cvv: cvvTF.text)
+        }
+        set{
+            cardNumberTF.text = newValue.number
+            expirationDateTF.text = newValue.expiration?.singleString
+            cvvTF.text = newValue.cvv
+        }
+        
+    }
+    
     fileprivate lazy var textFields:[UITextField] = [self.cardNumberTF, self.expirationDateTF, self.cvvTF]
     
     init() {
@@ -128,6 +142,7 @@ extension CreditCardInputField:UITextFieldDelegate {
         }
         return true
     }
+    
     
     private func switchToNeighbourTF(of tf:UITextField, direction:Int)
     {
