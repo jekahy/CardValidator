@@ -20,7 +20,7 @@ struct CreditCard {
         }
         return String(
             number.characters.enumerated().map() {
-                ($0.offset + 1) % 4 == 0 ? [$0.element, " "] : [$0.element]
+                (($0.offset + 1) % 4 == 0) && ($0.offset != number.characters.count-1) ? [$0.element, " "] : [$0.element]
                 }.joined()
         )
     }

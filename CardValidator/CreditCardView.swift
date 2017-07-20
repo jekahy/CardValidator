@@ -62,13 +62,15 @@ class CreditCardView: UIView {
         
         validityIndicator.isHidden = false
 
-        backgroundColor = UIColor.purple
+        //backgroundColor = UIColor.purple
         
-        validateButton.backgroundColor = UIColor.cyan
+        //validateButton.backgroundColor = UIColor.cyan
         validateButton.setTitle("Validate", for: .normal)
+        validateButton.setTitleColor(UIColor.black, for: .normal)
         
-        generateButton.backgroundColor = UIColor.cyan
+        //generateButton.backgroundColor = UIColor.cyan
         generateButton.setTitle("Generate", for: .normal)
+        generateButton.setTitleColor(UIColor.black, for: .normal)
         
         setupConstraints()
     }

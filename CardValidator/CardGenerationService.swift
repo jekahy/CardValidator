@@ -9,6 +9,7 @@
 import UIKit
 
 enum CreditCardKind {
+    
     case masterCard
     case visa
     

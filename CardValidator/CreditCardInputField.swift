@@ -53,13 +53,12 @@ class CreditCardInputField: UIStackView {
             return $0.0+1
         }
         _ = textFields.map{addArrangedSubview($0)}
-        _ = textFields.map{ tf -> (UITextField) in
-            tf.backgroundColor = UIColor.green
-            tf.delegate = self
-            tf.keyboardType = .numberPad
-            tf.font = tf.font?.withSize(16)
-            tf.clipsToBounds = false
-            return tf
+        _ = textFields.map{
+            
+            $0.delegate = self
+            $0.keyboardType = .numberPad
+            $0.font = $0.font?.withSize(16)
+            $0.clipsToBounds = true
         }
         
         cardNumberTF.placeholder = "1234 1234 1234 1245"
@@ -93,9 +92,9 @@ extension CreditCardInputField:UITextFieldDelegate {
             
             switch (range.location, range.length){
                 
-                case (4,0),(9,0),(14,0): textField.text = textField.text! + " "
+                case (4,0),(9,0),(14,0): textField.text = textField.text! + " " // Add space
                 
-                case (5,1),(10,1),(15,1):
+                case (5,1),(10,1),(15,1): // Skip space
                     
                     guard let text = textField.text else {break}
                     let index = text.index(before:text.endIndex)
@@ -115,10 +114,15 @@ extension CreditCardInputField:UITextFieldDelegate {
                     textField.text = ""
                     return false
                 
-                case (2, 0):
+                case (2, 0): // Add slash
 
                     textField.text = textField.text! + "/"
-                    
+            
+                case (3, 1): // Skip slash
+                    guard let text = textField.text else {break}
+                    let index = text.index(before:text.endIndex)
+                    textField.text = text.substring(to: index)
+                
                 case (5, 0):
 
                     switchToNeighbourTF(of: textField, direction: 1)
