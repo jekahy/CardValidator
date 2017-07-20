@@ -12,7 +12,7 @@ import PureLayout
 class CreditCardView: UIView {
     
     typealias ValidationClosure = (CreditCard, @escaping (Bool)->())->()
-    typealias GenerationClosure = ()->(()->(CreditCard))
+    typealias GenerationClosure = ()->(CreditCard)
 
     
     let inputField = CreditCardInputField()
@@ -28,9 +28,9 @@ class CreditCardView: UIView {
             
             generateButton.didTouchUpInsideClosure = {[weak self] in
                 
-                guard let creditCardGeneration = self?.generateTapClosure?() else {return}
+                guard let creditCard = self?.generateTapClosure?() else {return}
             
-                self?.inputField.currentCreditCard = creditCardGeneration()
+                self?.inputField.currentCreditCard = creditCard
             }
         }
     }

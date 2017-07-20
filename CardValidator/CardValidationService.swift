@@ -32,11 +32,13 @@ class CardValidationService:CreditCardValidatable{
                 switch result {
                     
                 case .success(let json):
-                    guard let validationRes = ValidationResult(JSON: json) else {
+                    
+                    guard let validationRes = ValidationResult(JSON: json), let isValid = validationRes.valid else {
                         completion(.failure(APIError.JSONSerializationError))
                         break
                     }
-                    completion(.success(validationRes.valid))
+          
+                    completion(.success(isValid))
                 case .failure(let error):
                     completion(.failure(error))
                 }
@@ -55,11 +57,14 @@ class CardValidationService:CreditCardValidatable{
                 switch result {
                     
                 case .success(let json):
-                    guard let validationRes = ValidationResult(JSON: json) else {
+                    
+                    guard let validationRes = ValidationResult(JSON:json), let isValid = validationRes.valid  else {
+                        
                         completion(false)
                         break
                     }
-                    completion(validationRes.valid)
+                    
+                    completion(isValid)
                 case .failure:
                     completion(false)
                 }

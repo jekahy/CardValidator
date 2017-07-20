@@ -12,14 +12,14 @@ struct ValidationResult: Mappable{
     
     var bank:String?
     var card:String?
-    var valid:Bool = false
+    var valid:Bool? = false
     
     init?(map: Map){}
     
     mutating func mapping(map: Map)
     {
+        valid<-(map["valid"], BoolTransform())
         bank<-map["bank"]
         card<-map["card"]
-        valid<-map["valid"]
     }
 }

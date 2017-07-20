@@ -25,17 +25,17 @@ class CreditCardInputField: UIStackView {
     let minimumElementHeigh:CGFloat = 50
     
     var currentCreditCard:CreditCard{
+        
         get{
             let expiration = Expiration(string:expirationDateTF.text ?? "")
             let number = cardNumberTF.text?.replacingOccurrences(of: " ", with: "")
             return CreditCard(number: number, expiration: expiration, cvv: cvvTF.text)
         }
         set{
-            cardNumberTF.text = newValue.number
+            cardNumberTF.text = newValue.numberWithSpaces
             expirationDateTF.text = newValue.expiration?.singleString
             cvvTF.text = newValue.cvv
         }
-        
     }
     
     fileprivate lazy var textFields:[UITextField] = [self.cardNumberTF, self.expirationDateTF, self.cvvTF]

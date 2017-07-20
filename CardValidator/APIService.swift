@@ -6,7 +6,7 @@
 //  Copyright © 2017 Eugene. All rights reserved.
 //
 
-import ObjectMapper
+import SwiftyJSON
 
 typealias JSON = [String:Any]
 
@@ -90,7 +90,6 @@ class APIService:APIProtocol{
                 completion(.failure(APIError.JSONSerializationError))
                 return
             }
-            
             if let error = self.checkJSONForError(json) {
                 completion(.failure(error))
             }else{

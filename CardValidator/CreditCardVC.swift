@@ -30,6 +30,12 @@ class CreditCardVC: UIViewController {
     
             CardValidationService.validate(creditCard, api: self.api, completion:completion)
         }
+        
+        cardView.generateTapClosure = { creditCard in
+            
+            return CardGenerationService.generateCard(kind: .visa)
+        }
+        
     }
 }
 
