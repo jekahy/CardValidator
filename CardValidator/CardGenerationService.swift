@@ -27,6 +27,7 @@ final class CardGenerationService {
     
     static func generateCard(kind:CreditCardKind)->CreditCard
     {
+
         let beginning = kind.startNumbers.components(separatedBy: "").flatMap{Int($0)}
         
         let middle = generateRandomPart()
@@ -37,7 +38,7 @@ final class CardGenerationService {
         return  CreditCard(number: wholeNumber, expiration: nil, cvv: nil)
     }
     
-    private static func generateRandomPart()->[Int]
+    static func generateRandomPart()->[Int]
     {
         var randomPart = [Int]()
         for _ in 0...10 {
