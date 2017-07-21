@@ -7,7 +7,7 @@
 //
 
 
-struct CreditCard {
+struct CreditCard:Equatable {
     
     let number:String?
     let expiration:Expiration?
@@ -23,6 +23,11 @@ struct CreditCard {
                 (($0.offset + 1) % 4 == 0) && ($0.offset != number.characters.count-1) ? [$0.element, " "] : [$0.element]
                 }.joined()
         )
+    }
+    
+    static func ==(lhs: CreditCard, rhs: CreditCard) -> Bool
+    {
+        return (lhs.number == rhs.number && lhs.expiration == rhs.expiration && lhs.cvv == rhs.cvv)
     }
 }
 

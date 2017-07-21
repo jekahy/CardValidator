@@ -31,6 +31,7 @@
 		E1E185F11F1E33EC00F2FB41 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E1E185F01F1E33EC00F2FB41 /* Assets.xcassets */; };
 		E1E185FF1F1E33EC00F2FB41 /* CardInputTextFieldHandlerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E185FE1F1E33EC00F2FB41 /* CardInputTextFieldHandlerTests.swift */; };
 		E1E1860A1F1E342800F2FB41 /* CreditCardInputField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E186091F1E342800F2FB41 /* CreditCardInputField.swift */; };
+		E1FD8FC31F22858F00F4C595 /* CreditCardInputFieldTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1FD8FC21F22858F00F4C595 /* CreditCardInputFieldTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -76,6 +77,7 @@
 		E1E185FE1F1E33EC00F2FB41 /* CardInputTextFieldHandlerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardInputTextFieldHandlerTests.swift; sourceTree = "<group>"; };
 		E1E186001F1E33EC00F2FB41 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E1E186091F1E342800F2FB41 /* CreditCardInputField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreditCardInputField.swift; sourceTree = "<group>"; };
+		E1FD8FC21F22858F00F4C595 /* CreditCardInputFieldTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreditCardInputFieldTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -211,6 +213,7 @@
 			isa = PBXGroup;
 			children = (
 				E1E185FE1F1E33EC00F2FB41 /* CardInputTextFieldHandlerTests.swift */,
+				E1FD8FC21F22858F00F4C595 /* CreditCardInputFieldTests.swift */,
 				E1E186001F1E33EC00F2FB41 /* Info.plist */,
 			);
 			path = CardValidatorTests;
@@ -445,6 +448,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E1FD8FC31F22858F00F4C595 /* CreditCardInputFieldTests.swift in Sources */,
 				E1E185FF1F1E33EC00F2FB41 /* CardInputTextFieldHandlerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

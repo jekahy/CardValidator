@@ -33,6 +33,10 @@ class CreditCardInputField: UIStackView, CreditCardInputFieldType {
     let elementSpacing:CGFloat = 10
     let minimumElementHeigh:CGFloat = 50
     
+    let numberPlaceholder = "1234 1234 1234 1245 "
+    let expirationPlaceholder = "MM/YY "
+    let cvvPlaceholder = "123 "
+    
     private (set) lazy var textFields:[UITextField] = [self.cardNumberTF, self.expirationDateTF, self.cvvTF]
     private (set) lazy var tfHandler:CardInputTextFieldHandler = CardInputTextFieldHandler(self.textFields)
 
@@ -71,13 +75,12 @@ class CreditCardInputField: UIStackView, CreditCardInputFieldType {
             $0.delegate = self.tfHandler
             $0.keyboardType = .numberPad
             $0.font = $0.font?.withSize(16)
-            $0.clipsToBounds = true
         }
         
         // Extra spaces in the end are needed to avoid textfield width changing
-        cardNumberTF.placeholder = "1234 1234 1234 1245 "
-        expirationDateTF.placeholder = "MM/YY "
-        cvvTF.placeholder = "123 "
+        cardNumberTF.placeholder = numberPlaceholder
+        expirationDateTF.placeholder = expirationPlaceholder
+        cvvTF.placeholder = cvvPlaceholder
     }
     
     required init(coder: NSCoder)

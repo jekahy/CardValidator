@@ -6,7 +6,7 @@
 //  Copyright © 2017 Eugene. All rights reserved.
 //
 
-struct Expiration {
+struct Expiration:Equatable {
     
     let month:String
     let year:String
@@ -26,5 +26,10 @@ struct Expiration {
         
         self.month = month
         self.year = year
+    }
+    
+    static func ==(lhs: Expiration, rhs: Expiration) -> Bool
+    {
+        return lhs.singleString == rhs.singleString
     }
 }
