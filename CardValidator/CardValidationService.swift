@@ -8,20 +8,14 @@
 
 import Foundation
 
-protocol CreditCardValidatable {
-    
-    static func validate(_ card:CreditCard, api:APIProtocol, completion:@escaping(Result<Bool>)->())
-
-}
-
-class CardValidationService:CreditCardValidatable{
+class CardValidationService{
     
     private static let bincodesApiKey = "5232a9bca11e25c0f8eb4313ff2644be"
     static let requestParameters = ["format":"json",
                                     "api_key":bincodesApiKey]
                                     
     
-    static func validate(_ card:CreditCard, api:APIProtocol, completion:@escaping(Result<Bool>)->())
+    static func validateWithResult(_ card:CreditCard, api:APIProtocol, completion:@escaping(Result<Bool>)->())
     {
         
         let params = generateParams(for: card)
@@ -48,26 +42,12 @@ class CardValidationService:CreditCardValidatable{
     
     static func validate(_ card:CreditCard, api:APIProtocol, completion:@escaping(Bool)->())
     {
-        
-        let params = generateParams(for: card)
-        api.getJSON( parameters: params) { result in
+        validateWithResult(card, api: api) { result in
             
-            DispatchQueue.main.async {
+            switch result {
                 
-                switch result {
-                    
-                case .success(let json):
-                    
-                    guard let validationRes = ValidationResult(JSON:json), let isValid = validationRes.valid  else {
-                        
-                        completion(false)
-                        break
-                    }
-                    
-                    completion(isValid)
-                case .failure:
-                    completion(false)
-                }
+            case .success(let isValid): completion(isValid)
+            case .failure:              completion(false)
             }
         }
     }
