@@ -9,7 +9,7 @@
 import UIKit
 import PureLayout
 
-protocol CreditCardViewType {
+protocol CreditCardViewType: class, ViewProvidable {
     
     typealias ValidationClosure = (CreditCard, @escaping (Bool)->())->()
     typealias GenerationClosure = ()->(CreditCard)
@@ -61,7 +61,7 @@ class CreditCardView: UIView, CreditCardViewType {
             }
         }
     }
-    
+
     init()
     {
         super.init(frame: CGRect.zero)

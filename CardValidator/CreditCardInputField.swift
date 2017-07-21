@@ -9,13 +9,11 @@
 import Foundation
 import UIKit
 
-protocol CreditCardInputFieldType:class {
+protocol CreditCardInputFieldType: class, ViewProvidable {
     
     var currentCreditCard:CreditCard{get set}
     var tfHandler:CardInputTextFieldHandler{get}
     var textFields:[UITextField]{get}
-    var view:UIView{get}
-
 }
 
 enum CardInputTFKind:Int {
@@ -52,10 +50,6 @@ class CreditCardInputField: UIStackView, CreditCardInputFieldType {
             expirationDateTF.text = newValue.expiration?.singleString
             cvvTF.text = newValue.cvv
         }
-    }
-    
-    var view: UIView {
-        return self
     }
     
     init() {

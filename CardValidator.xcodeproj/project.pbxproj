@@ -32,6 +32,8 @@
 		E1E185FF1F1E33EC00F2FB41 /* CardInputTextFieldHandlerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E185FE1F1E33EC00F2FB41 /* CardInputTextFieldHandlerTests.swift */; };
 		E1E1860A1F1E342800F2FB41 /* CreditCardInputField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E186091F1E342800F2FB41 /* CreditCardInputField.swift */; };
 		E1FD8FC31F22858F00F4C595 /* CreditCardInputFieldTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1FD8FC21F22858F00F4C595 /* CreditCardInputFieldTests.swift */; };
+		E1FD8FC51F228D5300F4C595 /* CreditCardViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1FD8FC41F228D5300F4C595 /* CreditCardViewTests.swift */; };
+		E1FD8FC71F228DB400F4C595 /* ViewProvidable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1FD8FC61F228DB400F4C595 /* ViewProvidable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -78,6 +80,8 @@
 		E1E186001F1E33EC00F2FB41 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E1E186091F1E342800F2FB41 /* CreditCardInputField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreditCardInputField.swift; sourceTree = "<group>"; };
 		E1FD8FC21F22858F00F4C595 /* CreditCardInputFieldTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreditCardInputFieldTests.swift; sourceTree = "<group>"; };
+		E1FD8FC41F228D5300F4C595 /* CreditCardViewTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreditCardViewTests.swift; sourceTree = "<group>"; };
+		E1FD8FC61F228DB400F4C595 /* ViewProvidable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewProvidable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -196,6 +200,7 @@
 			isa = PBXGroup;
 			children = (
 				E1E185E91F1E33EC00F2FB41 /* AppDelegate.swift */,
+				E1FD8FC61F228DB400F4C595 /* ViewProvidable.swift */,
 				E1D3F4641F21E8A700D3DB55 /* View Controllers */,
 				E1D3F4631F21E8A000D3DB55 /* Controls */,
 				E1D3F45A1F20F53B00D3DB55 /* Services */,
@@ -214,6 +219,7 @@
 			children = (
 				E1E185FE1F1E33EC00F2FB41 /* CardInputTextFieldHandlerTests.swift */,
 				E1FD8FC21F22858F00F4C595 /* CreditCardInputFieldTests.swift */,
+				E1FD8FC41F228D5300F4C595 /* CreditCardViewTests.swift */,
 				E1E186001F1E33EC00F2FB41 /* Info.plist */,
 			);
 			path = CardValidatorTests;
@@ -441,6 +447,7 @@
 				E1D3F45F1F210C9E00D3DB55 /* Expiration.swift in Sources */,
 				E1E185EA1F1E33EC00F2FB41 /* AppDelegate.swift in Sources */,
 				E15317161F22050600F46C9C /* StringExtensions.swift in Sources */,
+				E1FD8FC71F228DB400F4C595 /* ViewProvidable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -450,6 +457,7 @@
 			files = (
 				E1FD8FC31F22858F00F4C595 /* CreditCardInputFieldTests.swift in Sources */,
 				E1E185FF1F1E33EC00F2FB41 /* CardInputTextFieldHandlerTests.swift in Sources */,
+				E1FD8FC51F228D5300F4C595 /* CreditCardViewTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

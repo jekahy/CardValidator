@@ -9,7 +9,7 @@
 import UIKit
 import PureLayout
 
-extension UIView {
+extension UIView:ViewProvidable {
     
     func autoMatchAll(to view:UIView)
     {
@@ -18,4 +18,9 @@ extension UIView {
         self.autoAlignAxis(.horizontal, toSameAxisOf: view)
         self.autoAlignAxis(.vertical, toSameAxisOf: view)
     }
+    
+    var view:UIView {
+        return self
+    }
+    
 }
