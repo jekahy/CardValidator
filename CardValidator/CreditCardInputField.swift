@@ -42,7 +42,6 @@ class CreditCardInputField: UIStackView {
         }
     }
     
-    
     init() {
         
         super.init(frame: CGRect.zero)
@@ -63,9 +62,10 @@ class CreditCardInputField: UIStackView {
             $0.clipsToBounds = true
         }
         
-        cardNumberTF.placeholder = "1234 1234 1234 1245"
-        expirationDateTF.placeholder = "MM/YY"
-        cvvTF.placeholder = "123"
+        // Extra spaces in the end are needed to avoid textfield width changing
+        cardNumberTF.placeholder = "1234 1234 1234 1245 "
+        expirationDateTF.placeholder = "MM/YY "
+        cvvTF.placeholder = "123 "
     }
     
     required init(coder: NSCoder)

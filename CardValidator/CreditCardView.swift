@@ -9,12 +9,17 @@
 import UIKit
 import PureLayout
 
-class CreditCardView: UIView {
+protocol CreditCardViewType {
     
     typealias ValidationClosure = (CreditCard, @escaping (Bool)->())->()
     typealias GenerationClosure = ()->(CreditCard)
-
     
+    var generateTapClosure:GenerationClosure?{get set}
+    var validateTapClosure:ValidationClosure?{get set}
+}
+
+class CreditCardView: UIView, CreditCardViewType {
+
     let inputField = CreditCardInputField()
     let validateButton = Button(type: .custom)
     let generateButton = Button(type: .custom)
@@ -24,9 +29,12 @@ class CreditCardView: UIView {
     let buttonHeight:CGFloat = 30
     
     var generateTapClosure:GenerationClosure?{
+        
         didSet{
             
             generateButton.didTouchUpInsideClosure = {[weak self] in
+                
+                self?.endEditing(true)
                 
                 guard let creditCard = self?.generateTapClosure?() else {return}
             
@@ -38,11 +46,16 @@ class CreditCardView: UIView {
     var validateTapClosure:ValidationClosure?{
         didSet{
             validateButton.didTouchUpInsideClosure = {[weak self] in
+                
+                self?.endEditing(true)
+                self?.toggleBusyMode(true)
+                
                 guard let valClosure = self?.validateTapClosure, let currentCard = self?.inputField.currentCreditCard else {
                     return
                 }
                 valClosure(currentCard){[weak self] isValid in
                     self?.validityIndicator.isValid = isValid
+                    self?.toggleBusyMode(false)
                 }
             }
         }
@@ -58,24 +71,18 @@ class CreditCardView: UIView {
         addSubview(activityIndicator)
         addSubview(validityIndicator)
         
-        activityIndicator.isHidden = true
+        toggleBusyMode(false)
         
-        validityIndicator.isHidden = false
-
-        //backgroundColor = UIColor.purple
-        
-        //validateButton.backgroundColor = UIColor.cyan
         validateButton.setTitle("Validate", for: .normal)
         validateButton.setTitleColor(UIColor.black, for: .normal)
         
-        //generateButton.backgroundColor = UIColor.cyan
         generateButton.setTitle("Generate", for: .normal)
         generateButton.setTitleColor(UIColor.black, for: .normal)
         
         setupConstraints()
     }
     
-    private func setupConstraints()
+    func setupConstraints()
     {
         inputField.autoPinEdge(toSuperviewEdge: .top, withInset:edgeMargin)
         inputField.autoPinEdge(toSuperviewEdge: .leading, withInset:edgeMargin)
@@ -101,6 +108,19 @@ class CreditCardView: UIView {
         activityIndicator.autoPinEdge(.right, to: .left, of: validateButton, withOffset: -edgeMargin, relation:NSLayoutRelation.greaterThanOrEqual)
         
         validityIndicator.autoMatchAll(to:activityIndicator)
+    }
+    
+    
+    func toggleBusyMode(_ busyOn:Bool)
+    {
+        isUserInteractionEnabled = !busyOn
+        activityIndicator.isHidden = !busyOn
+        validityIndicator.isHidden = busyOn
+        if busyOn{
+            activityIndicator.startAnimating()
+        }else{
+            activityIndicator.stopAnimating()
+        }
     }
     
     required init?(coder aDecoder: NSCoder)
