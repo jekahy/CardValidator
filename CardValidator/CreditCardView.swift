@@ -16,11 +16,12 @@ protocol CreditCardViewType {
     
     var generateTapClosure:GenerationClosure?{get set}
     var validateTapClosure:ValidationClosure?{get set}
+    
 }
 
 class CreditCardView: UIView, CreditCardViewType {
 
-    let inputField = CreditCardInputField()
+    let inputField:CreditCardInputFieldType = CreditCardInputField()
     let validateButton = Button(type: .custom)
     let generateButton = Button(type: .custom)
     let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
@@ -65,7 +66,7 @@ class CreditCardView: UIView, CreditCardViewType {
     {
         super.init(frame: CGRect.zero)
         
-        addSubview(inputField)
+        addSubview(inputField.view)
         addSubview(validateButton)
         addSubview(generateButton)
         addSubview(activityIndicator)
@@ -84,17 +85,17 @@ class CreditCardView: UIView, CreditCardViewType {
     
     func setupConstraints()
     {
-        inputField.autoPinEdge(toSuperviewEdge: .top, withInset:edgeMargin)
-        inputField.autoPinEdge(toSuperviewEdge: .leading, withInset:edgeMargin)
-        inputField.autoPinEdge(toSuperviewEdge: .trailing, withInset:edgeMargin)
-        inputField.autoMatch(.height, to: .height, of: self, withMultiplier: 0.5)
+        inputField.view.autoPinEdge(toSuperviewEdge: .top, withInset:edgeMargin)
+        inputField.view.autoPinEdge(toSuperviewEdge: .leading, withInset:edgeMargin)
+        inputField.view.autoPinEdge(toSuperviewEdge: .trailing, withInset:edgeMargin)
+        inputField.view.autoMatch(.height, to: .height, of: self, withMultiplier: 0.5)
         
-        validateButton.autoPinEdge(.top, to: .bottom, of: inputField, withOffset:edgeMargin)
+        validateButton.autoPinEdge(.top, to: .bottom, of: inputField.view, withOffset:edgeMargin)
         validateButton.autoSetDimension(.width, toSize: 60, relation: .greaterThanOrEqual)
         validateButton.autoSetDimension(.height, toSize: buttonHeight)
         validateButton.autoPinEdge(toSuperviewEdge: .trailing, withInset:edgeMargin)
         
-        generateButton.autoPinEdge(.top, to: .bottom, of: inputField, withOffset:edgeMargin)
+        generateButton.autoPinEdge(.top, to: .bottom, of: inputField.view, withOffset:edgeMargin)
         generateButton.autoSetDimension(.width, toSize: 60, relation: .greaterThanOrEqual)
         generateButton.autoSetDimension(.height, toSize: buttonHeight)
         generateButton.autoPinEdge(toSuperviewEdge: .leading, withInset:edgeMargin)
