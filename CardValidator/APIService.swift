@@ -6,7 +6,7 @@
 //  Copyright © 2017 Eugene. All rights reserved.
 //
 
-import SwiftyJSON
+import Foundation
 
 typealias JSON = [String:Any]
 

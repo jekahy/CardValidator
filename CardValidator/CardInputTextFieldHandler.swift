@@ -16,12 +16,24 @@ class CardInputTextFieldHandler:NSObject,UITextFieldDelegate{
         case previous = -1
     }
 
-    enum TextFieldChangeCommand{
+    enum TextFieldChangeCommand:Equatable{
         case denyEdit
         case edit
         case editAndUpdateText(String)
         case editAndMoveToNeighbour(TextFieldMoveDirection)
         case moveToNeighbourAndClear(TextFieldMoveDirection)
+        
+        static func ==(lhs: TextFieldChangeCommand, rhs: TextFieldChangeCommand) -> Bool
+        {
+            switch (lhs, rhs){
+            case (.edit, .edit), (.denyEdit, .denyEdit): return true
+            case (.editAndUpdateText(let lText), .editAndUpdateText(let rText)):return lText == rText
+            case (.editAndMoveToNeighbour(let lNeigh), .editAndMoveToNeighbour(let rNeigh)): return lNeigh == rNeigh
+            case (.moveToNeighbourAndClear(let lNeigh), .moveToNeighbourAndClear(let rNeigh)):
+                return lNeigh == rNeigh
+            default: return false
+            }
+        }
     }
     
     let textFields:[UITextField]
@@ -33,7 +45,6 @@ class CardInputTextFieldHandler:NSObject,UITextFieldDelegate{
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
-        guard validateString(string: string) else {return false}
         guard let tfKind = CardInputTFKind(rawValue: textField.tag)  else {return true}
         guard let text = textField.text else {return true}
         
