@@ -9,21 +9,16 @@
 import UIKit
 
 class TextField: UITextField {
-    
-    
-    init()
-    {
+
+    init() {
         super.init(frame: CGRect.zero)
     }
-    
-    required init?(coder aDecoder: NSCoder)
-    {
+
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-    
-    
-    override func closestPosition(to point: CGPoint) -> UITextPosition?
-    {
+
+    override func closestPosition(to point: CGPoint) -> UITextPosition? {
         let beginning = self.beginningOfDocument
         let end = self.position(from: beginning, offset: (self.text?.characters.count)!)
         return end

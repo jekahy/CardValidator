@@ -9,9 +9,9 @@
 import Foundation
 
 extension String {
-    
-    var length:Int {
-        
+
+    var length: Int {
+
         return self.characters.count
     }
 }

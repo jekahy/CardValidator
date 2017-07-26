@@ -6,14 +6,14 @@
 //  Copyright © 2017 Eugene. All rights reserved.
 //
 
-protocol StringType : Hashable {
-    
-    var value : String { get }
-    
+protocol StringType: Hashable {
+
+    var value: String { get }
+
 }
 
 extension String : StringType {
-    
-    var value : String { return self }
-    
+
+    var value: String { return self }
+
 }

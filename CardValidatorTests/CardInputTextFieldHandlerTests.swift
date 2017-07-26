@@ -11,6 +11,8 @@ import XCTest
 
 class CardInputTextFieldHandlerTests: XCTestCase {
     
+    typealias Command = CardInputTextFieldHandler.TextFieldChangeCommand
+    
     lazy var sut:CardInputTextFieldHandler = {
         let tfs = [TextField()]
         return CardInputTextFieldHandler(tfs)
@@ -28,26 +30,26 @@ class CardInputTextFieldHandlerTests: XCTestCase {
     
     func testNumberInputLargerThan16WithFullNextDenied()
     {
-        let expected = CardInputTextFieldHandler.TextFieldChangeCommand.denyEdit
+        let expected = Command.denyEdit
         
         let testText = "1234 1242 2411 1242"
         let testNextText = "12/12"
-        let testRange = NSRange(location: 19, length: 0)
         let testReplacementString = "1"
-        let result = sut.handleTextFieldChange(textFieldKind: .number, text: testText, nextTextFieldText:testNextText , shouldChangeCharactersIn: testRange, replacementString: testReplacementString)
+        let change = TextFieldChange(text: testText, nextTFText: testNextText, location: 19, isDeleting: false, replacementString: testReplacementString)
+        let result = sut.handleTextFieldChange(change, for: .number)
         
         XCTAssertEqual(expected, result)
     }
     
     func testTextFieldMoveNumberLargerThan16WithNotFullNext()
     {
-        let expected = CardInputTextFieldHandler.TextFieldChangeCommand.editAndMoveToNeighbour(.next)
+        let expected = Command.editAndMoveToNeighbour(.next)
         
         let testText = "1234 1242 2411 1242"
         let testNextText = ""
-        let testRange = NSRange(location: 19, length: 0)
         let testReplacementString = "1"
-        let result = sut.handleTextFieldChange(textFieldKind: .number, text: testText, nextTextFieldText:testNextText , shouldChangeCharactersIn: testRange, replacementString: testReplacementString)
+        let change = TextFieldChange(text: testText, nextTFText: testNextText, location: 19, isDeleting: false, replacementString: testReplacementString)
+        let result = sut.handleTextFieldChange(change, for: .number)
         
         XCTAssertEqual(expected, result)
     }
@@ -56,34 +58,18 @@ class CardInputTextFieldHandlerTests: XCTestCase {
     func testSpacesAddOnNumberInput()
     {
 
-        var testText = "1234"
-        var expected = CardInputTextFieldHandler.TextFieldChangeCommand.editAndUpdateText(testText + " ")
-        
         let testReplacementString = "1"
         let testNextText = ""
-        var testRange = NSRange(location: 4, length: 0)
         
-        var result = sut.handleTextFieldChange(textFieldKind: .number, text: testText, nextTextFieldText:testNextText , shouldChangeCharactersIn: testRange, replacementString: testReplacementString)
+        let testData = [("1234",4), ("1234 1234", 9), ("1234 1234 1234", 14)]
         
-        XCTAssertEqual(expected, result)
-        
-        testText = "1234 1234"
-        testRange = NSRange(location: 9, length: 0)
-        
-        expected = CardInputTextFieldHandler.TextFieldChangeCommand.editAndUpdateText(testText + " ")
-        
-        result = sut.handleTextFieldChange(textFieldKind: .number, text: testText, nextTextFieldText:testNextText , shouldChangeCharactersIn: testRange, replacementString: testReplacementString)
-        
-        XCTAssertEqual(expected, result)
-        
-        testText = "1234 1234 1234"
-        testRange = NSRange(location: 14, length: 0)
-        
-        expected = CardInputTextFieldHandler.TextFieldChangeCommand.editAndUpdateText(testText + " ")
-        
-        result = sut.handleTextFieldChange(textFieldKind: .number, text: testText, nextTextFieldText:testNextText , shouldChangeCharactersIn: testRange, replacementString: testReplacementString)
-        
-        XCTAssertEqual(expected, result)
+        for data in testData{
+            
+            let expected = Command.editAndUpdateText(data.0 + " ")
+            let change = TextFieldChange(text: data.0, nextTFText: testNextText, location: data.1, isDeleting: false, replacementString: testReplacementString)
+            let result = sut.handleTextFieldChange(change, for: .number)
+            XCTAssertEqual(expected, result)
+        }
     }
     
     
@@ -93,44 +79,29 @@ class CardInputTextFieldHandlerTests: XCTestCase {
         let testReplacementString = "1"
         let testNextText = ""
         
-        var expected = CardInputTextFieldHandler.TextFieldChangeCommand.editAndUpdateText("1234 ")
-        var testText = "1234 2"
-        var testRange = NSRange(location: 5, length: 1)
+        let testData = [("1234 2", 5), ("1234 1234 2", 10), ("1234 1234 1234 2", 15)]
         
-        var result = sut.handleTextFieldChange(textFieldKind: .number, text: testText, nextTextFieldText:testNextText , shouldChangeCharactersIn: testRange, replacementString: testReplacementString)
-        
-        XCTAssertEqual(expected, result)
-        
-        
-        expected = CardInputTextFieldHandler.TextFieldChangeCommand.editAndUpdateText("1234 1234 ")
-        
-        testText = "1234 1234 2"
-        testRange = NSRange(location: 10, length: 1)
-        
-        result = sut.handleTextFieldChange(textFieldKind: .number, text: testText, nextTextFieldText:testNextText , shouldChangeCharactersIn: testRange, replacementString: testReplacementString)
-        
-        XCTAssertEqual(expected, result)
-        
-        
-        expected = CardInputTextFieldHandler.TextFieldChangeCommand.editAndUpdateText("1234 1234 1234 ")
-        
-        testText = "1234 1234 1234 2"
-        testRange = NSRange(location: 15, length: 1)
-        
-        result = sut.handleTextFieldChange(textFieldKind: .number, text: testText, nextTextFieldText:testNextText , shouldChangeCharactersIn: testRange, replacementString: testReplacementString)
-        
-        XCTAssertEqual(expected, result)
+        for data in testData{
+            let testText = data.0
+            let expectedText = testText.substring(to: testText.index(before: testText.endIndex))
+            let expected = Command.editAndUpdateText(expectedText)
+            let change = TextFieldChange(text: testText, nextTFText: testNextText, location: data.1, isDeleting: true, replacementString: testReplacementString)
+            let result = sut.handleTextFieldChange(change, for: .number)
+            XCTAssertEqual(expected, result)
+        }
+
     }
+    
     
     func testNumberCharacterEnterDenied()
     {
-        let expected = CardInputTextFieldHandler.TextFieldChangeCommand.denyEdit
+        let expected = Command.denyEdit
         
         let testText = ""
         let testNextText = ""
-        let testRange = NSRange(location: 0, length: 0)
         let testReplacementString = "a"
-        let result = sut.handleTextFieldChange(textFieldKind: .number, text: testText, nextTextFieldText:testNextText , shouldChangeCharactersIn: testRange, replacementString: testReplacementString)
+        let change = TextFieldChange(text: testText, nextTFText: testNextText, location: 0, isDeleting: false, replacementString: testReplacementString)
+        let result = sut.handleTextFieldChange(change, for: .expirationDate)
         
         XCTAssertEqual(expected, result)
     }
@@ -138,13 +109,13 @@ class CardInputTextFieldHandlerTests: XCTestCase {
     
     func testExpirationDateInputLargerThan4WithFullNextDenied()
     {
-        let expected = CardInputTextFieldHandler.TextFieldChangeCommand.denyEdit
+        let expected = Command.denyEdit
         
         let testText = "12/12"
         let testNextText = "111"
-        let testRange = NSRange(location: 5, length: 0)
         let testReplacementString = "1"
-        let result = sut.handleTextFieldChange(textFieldKind: .expirationDate, text: testText, nextTextFieldText:testNextText , shouldChangeCharactersIn: testRange, replacementString: testReplacementString)
+        let change = TextFieldChange(text: testText, nextTFText: testNextText, location: 5, isDeleting: false, replacementString: testReplacementString)
+        let result = sut.handleTextFieldChange(change, for: .expirationDate)
         
         XCTAssertEqual(expected, result)
     }
@@ -152,13 +123,13 @@ class CardInputTextFieldHandlerTests: XCTestCase {
     
     func testExpirationDateInputMoveToNext()
     {
-        let expected = CardInputTextFieldHandler.TextFieldChangeCommand.editAndMoveToNeighbour(.next)
+        let expected = Command.editAndMoveToNeighbour(.next)
         
         let testText = "12/12"
         let testNextText = ""
-        let testRange = NSRange(location: 5, length: 0)
         let testReplacementString = "1"
-        let result = sut.handleTextFieldChange(textFieldKind: .expirationDate, text: testText, nextTextFieldText:testNextText , shouldChangeCharactersIn: testRange, replacementString: testReplacementString)
+        let change = TextFieldChange(text: testText, nextTFText: testNextText, location: 5, isDeleting: false, replacementString: testReplacementString)
+        let result = sut.handleTextFieldChange(change, for: .expirationDate)
         
         XCTAssertEqual(expected, result)
     }
@@ -166,13 +137,13 @@ class CardInputTextFieldHandlerTests: XCTestCase {
     
     func testExpirationDateDeleteMoveToPrevious()
     {
-        let expected = CardInputTextFieldHandler.TextFieldChangeCommand.moveToNeighbourAndClear(.previous)
+        let expected = Command.moveToNeighbourAndClear(.previous)
         
         let testText = "1"
         let testNextText = ""
-        let testRange = NSRange(location: 0, length: 1)
         let testReplacementString = "1"
-        let result = sut.handleTextFieldChange(textFieldKind: .expirationDate, text: testText, nextTextFieldText:testNextText , shouldChangeCharactersIn: testRange, replacementString: testReplacementString)
+        let change = TextFieldChange(text: testText, nextTFText: testNextText, location: 0, isDeleting: true, replacementString: testReplacementString)
+        let result = sut.handleTextFieldChange(change, for: .expirationDate)
         
         XCTAssertEqual(expected, result)
     }
@@ -182,13 +153,12 @@ class CardInputTextFieldHandlerTests: XCTestCase {
     {
         
         let testText = "12"
-        let expected = CardInputTextFieldHandler.TextFieldChangeCommand.editAndUpdateText(testText + "/")
+        let expected = Command.editAndUpdateText(testText + "/")
         
         let testReplacementString = "1"
         let testNextText = ""
-        let testRange = NSRange(location: 2, length: 0)
-        
-        let result = sut.handleTextFieldChange(textFieldKind: .expirationDate, text: testText, nextTextFieldText:testNextText , shouldChangeCharactersIn: testRange, replacementString: testReplacementString)
+        let change = TextFieldChange(text: testText, nextTFText: testNextText, location: 2, isDeleting: false, replacementString: testReplacementString)
+        let result = sut.handleTextFieldChange(change, for: .expirationDate)
         
         XCTAssertEqual(expected, result)
     }
@@ -197,13 +167,12 @@ class CardInputTextFieldHandlerTests: XCTestCase {
     {
         
         let testText = "12/1"
-        let expected = CardInputTextFieldHandler.TextFieldChangeCommand.editAndUpdateText("12/")
+        let expected = Command.editAndUpdateText("12/")
         
         let testReplacementString = ""
         let testNextText = ""
-        let testRange = NSRange(location: 3, length: 1)
-        
-        let result = sut.handleTextFieldChange(textFieldKind: .expirationDate, text: testText, nextTextFieldText:testNextText , shouldChangeCharactersIn: testRange, replacementString: testReplacementString)
+        let change = TextFieldChange(text: testText, nextTFText: testNextText, location: 3, isDeleting: true, replacementString: testReplacementString)
+        let result = sut.handleTextFieldChange(change, for: .expirationDate)
         
         XCTAssertEqual(expected, result)
     }
@@ -211,24 +180,24 @@ class CardInputTextFieldHandlerTests: XCTestCase {
     
     func testCVVInputLargerThan3Denied()
     {
-        let expected = CardInputTextFieldHandler.TextFieldChangeCommand.denyEdit
+        let expected = Command.denyEdit
         let testText = "111"
         let testNextText = ""
-        let testRange = NSRange(location: 3, length: 0)
         let testReplacementString = "1"
-        let result = sut.handleTextFieldChange(textFieldKind: .cvv, text: testText, nextTextFieldText:testNextText , shouldChangeCharactersIn: testRange, replacementString: testReplacementString)
+        let change = TextFieldChange(text: testText, nextTFText: testNextText, location: 3, isDeleting: false, replacementString: testReplacementString)
+        let result = sut.handleTextFieldChange(change, for: .cvv)
         
         XCTAssertEqual(expected, result)
     }
     
     func testCVVDeleteMoveToPrevious()
     {
-        let expected = CardInputTextFieldHandler.TextFieldChangeCommand.moveToNeighbourAndClear(.previous)
+        let expected = Command.moveToNeighbourAndClear(.previous)
         let testText = "1"
         let testNextText = ""
-        let testRange = NSRange(location: 0, length: 1)
         let testReplacementString = "1"
-        let result = sut.handleTextFieldChange(textFieldKind: .cvv, text: testText, nextTextFieldText:testNextText , shouldChangeCharactersIn: testRange, replacementString: testReplacementString)
+        let change = TextFieldChange(text: testText, nextTFText: testNextText, location: 0, isDeleting: true, replacementString: testReplacementString)
+        let result = sut.handleTextFieldChange(change, for: .cvv)
         
         XCTAssertEqual(expected, result)
     }

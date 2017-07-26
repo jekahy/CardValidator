@@ -13,22 +13,20 @@ class ValidityIndicator: UIView, Roundable {
     var invalidColor = UIColor.red
     var validColor = UIColor.green
 
-    var isValid:Bool = false {
-        didSet{
+    var isValid: Bool = false {
+        didSet {
             backgroundColor = isValid ? validColor : invalidColor
         }
     }
-    
-    init()
-    {
+
+    init() {
         super.init(frame: CGRect.zero)
         backgroundColor = UIColor.lightGray
         self.roundCorners()
     }
-    
-    required init?(coder aDecoder: NSCoder)
-    {
+
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-    
+
 }

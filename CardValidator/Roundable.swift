@@ -11,9 +11,8 @@ import UIKit
 protocol Roundable {}
 
 extension Roundable where Self:UIView {
-    
-    func roundCorners(_ radius:CGFloat=10)
-    {
+
+    func roundCorners(_ radius: CGFloat=10) {
         layer.cornerRadius = radius
         layer.masksToBounds = true
     }

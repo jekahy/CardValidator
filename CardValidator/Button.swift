@@ -6,13 +6,12 @@
 //  Copyright © 2017 Eugene. All rights reserved.
 //
 
-
 import UIKit
 
 class Button: UIButton {
-    
-    typealias DidTapButton = () -> ()
-    
+
+    typealias DidTapButton = () -> Void
+
     var didTouchUpInsideClosure: DidTapButton? {
         didSet {
             if didTouchUpInsideClosure != nil {
@@ -22,11 +21,11 @@ class Button: UIButton {
             }
         }
     }
-    
+
     func didTouchUpInside() {
         if let handler = didTouchUpInsideClosure {
             handler()
         }
     }
-    
+
 }

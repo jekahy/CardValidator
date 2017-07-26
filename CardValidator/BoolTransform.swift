@@ -8,22 +8,19 @@
 
 import ObjectMapper
 
-struct BoolTransform : TransformType{
-    
+struct BoolTransform: TransformType {
+
     typealias JSON = String
     typealias Object = Bool
-    
-    func transformFromJSON(_ value: Any?) -> Bool?
-    {
+
+    func transformFromJSON(_ value: Any?) -> Bool? {
         guard let string = value as? String else {
             return nil
         }
         return Bool(string)
     }
-    
-    
-    func transformToJSON(_ value: Bool?) -> String?
-    {
+
+    func transformToJSON(_ value: Bool?) -> String? {
         if let value = value {
             return String(value)
         }

@@ -9,6 +9,6 @@
 import UIKit
 
 protocol ViewProvidable {
-    
-    var view:UIView{get}
+
+    var view: UIView {get}
 }
